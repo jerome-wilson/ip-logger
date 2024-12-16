@@ -11,11 +11,9 @@
             const errorMessage = document.getElementById('errorMessage');
 
             logIpButton.addEventListener('click', function() {
-                // Fetch public IP from the ipinfo.io API
                 fetch('https://ipinfo.io/json')
                     .then(response => response.json())
                     .then(data => {
-                        // Send IP to the server using a POST request
                         fetch('logip.php', {
                             method: 'POST',
                             headers: {
@@ -36,13 +34,13 @@
                         .catch(error => {
                             console.log('Error sending IP to server:', error);
                             errorMessage.textContent = "Error logging your IP.";
-                            errorMessage.style.color = "red"; // Error message color
+                            errorMessage.style.color = "red";
                         });
                     })
                     .catch(error => {
                         console.log('Error getting IP:', error);
                         errorMessage.textContent = "Error fetching your IP address.";
-                        errorMessage.style.color = "red"; // Error message color
+                        errorMessage.style.color = "red";
                     });
             });
         });

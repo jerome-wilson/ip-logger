@@ -1,3 +1,7 @@
+#NOTE:
+THIS WEBSITE IS SECURELY LICENCED AND CERTIFIED USING GOOGLE'S SSL CERTIFITE.
+THE WEBSITE IS CLOSELY MONITORED. ANY ATTEMPT FOR BREACH OR UNAUTHORIZED USAGE SHALL BE DEALT LEGALLY.
+
 IP Logger
 
 A simple web application that logs the public IP addresses of users who visit the site. This project uses HTML, CSS, JavaScript for the frontend and PHP to log the IP addresses to a file on the server.
@@ -12,7 +16,7 @@ Features
 Demo
 
 You can access the live demo of the project at:  
-http://localhost/ip-logger/index.html
+https://ip-logger.wuaze.com
 
 ## Technologies Used
 

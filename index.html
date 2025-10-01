@@ -6,42 +6,29 @@
     <title>IP Logger</title>
     <link rel="stylesheet" href="style.css">
     <script defer>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', () => {
             const logIpButton = document.getElementById('logIpButton');
-            const errorMessage = document.getElementById('errorMessage');
+            const statusMessage = document.getElementById('errorMessage');
 
-            logIpButton.addEventListener('click', function() {
-                fetch('https://ipinfo.io/json')
-                    .then(response => response.json())
-                    .then(data => {
-                        fetch('logip.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ ip: data.ip })
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json();
-                        })
-                        .then(responseData => {
-                            errorMessage.textContent = "Your IP has been logged successfully!";
-                            errorMessage.style.color = "green"; // Success message color
-                        })
-                        .catch(error => {
-                            console.log('Error sending IP to server:', error);
-                            errorMessage.textContent = "Error logging your IP.";
-                            errorMessage.style.color = "red";
-                        });
-                    })
-                    .catch(error => {
-                        console.log('Error getting IP:', error);
-                        errorMessage.textContent = "Error fetching your IP address.";
-                        errorMessage.style.color = "red";
-                    });
+            logIpButton.addEventListener('click', async () => {
+                statusMessage.textContent = 'Logging your visit...';
+                statusMessage.style.color = '#333';
+                try {
+                    const res = await fetch('logip.php', { method: 'POST' });
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    const data = await res.json().catch(() => ({}));
+                    if (data && data.status === 'ok') {
+                        statusMessage.textContent = 'Your IP has been logged successfully!';
+                        statusMessage.style.color = 'green';
+                    } else {
+                        statusMessage.textContent = 'Logged, but response was unexpected.';
+                        statusMessage.style.color = 'orange';
+                    }
+                } catch (err) {
+                    console.error('Error logging IP:', err);
+                    statusMessage.textContent = 'Error logging your IP.';
+                    statusMessage.style.color = 'red';
+                }
             });
         });
     </script>
@@ -50,7 +37,7 @@
     <div class="container">
         <h1>Click the Button Below</h1>
         <button id="logIpButton">Click Here</button>
-        <p class="error" id="errorMessage"></p>
+        <p class="error" id="errorMessage" aria-live="polite"></p>
     </div>
 </body>
 </html>

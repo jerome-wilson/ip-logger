@@ -1,0 +1,12 @@
+# Logs and runtime artifacts
+logs/
+*.log
+*.txt
+ips.*
+
+# OS/editor
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/

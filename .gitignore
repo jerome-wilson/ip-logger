@@ -1,8 +1,8 @@
 # Logs and runtime artifacts
-logs/
+logs/*
+!logs/.htaccess
 *.log
-*.txt
-ips.*
+ips.txt
 
 # OS/editor
 .DS_Store
